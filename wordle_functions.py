@@ -20,5 +20,6 @@ def pick_word_from_list(word_list_txt_file: str) -> list:
         randomWord = wlist[rand].lower()
         print("mot choisi : ", randomWord)
         
+        
 
 
