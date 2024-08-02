@@ -17,8 +17,8 @@ def pick_word_from_list(word_list_txt_file: str) -> list:
         wlist = content.split("\n")
 
         rand = random.randint(0, len(wlist)-1)
-        randomWord = wlist[rand].lower()
-        print("mot choisi : ", randomWord)
+        rand_word = wlist[rand].lower()
+        print("mot choisi : ", rand_word)
         
         
 
