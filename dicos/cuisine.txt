@@ -85,10 +85,6 @@ daubiere
 dariole
 darne
 decoction
-decouvert
-degre
-dent-de-loup
-des
 desserte
 detrempe
 dorure
@@ -233,7 +229,6 @@ rouleau
 roux
 royale
 ruban
-russe
 sabayon
 saindoux
 salamandre

@@ -40,5 +40,3 @@ def clean_file(filepath_abs: str):
             f.write(c)
 
 
-file_list_txt_to_lowercase("/home/coffee/wordle-cli/dicos/cuisine.txt")
-
