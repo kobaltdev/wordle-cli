@@ -59,9 +59,9 @@ def check_if_answer_length_is_ok(word_to_find: str, answer: str) -> bool:
         return False
     
 
-def play_wordle(tries: int, word_to_find: str):
+def play_one_question_and_return_score(tries: int, word_to_find: str, round_number: int, max_rounds: int) -> int:
     win = False
-    print(f"C'est parti, le mot à trouver fait {len(word_to_find)} caractères !\n")
+    print(f"Mot {round_number+1} / {max_rounds} : le mot à trouver fait {len(word_to_find)} caractères !\n")
 
     while tries > 0:
         print("Essai(s) restant(s) :", tries, '\n')
@@ -72,16 +72,20 @@ def play_wordle(tries: int, word_to_find: str):
         if check_if_answer_length_is_ok(word_to_find, answer):
             if compare_words(word_to_find, answer):
                 print()
-                print("Bravo, vous avez trouvé le mot !")
+                print("Bravo, vous avez trouvé le mot !\n")
+                input("Appuyer sur ENTER pour continuer ...")
                 win = True
-                break
+                return tries
             else:
                 tries -= 1
+                print()
     if win == False:
         print()
         print("Perdu !\n")
         print("Le mot à trouver était :", word_to_find)
-
+        print()
+        input("Appuyer sur ENTER pour continuer ...")
+        return tries
 
         
 def choose_theme() -> str:
@@ -93,8 +97,10 @@ def choose_theme() -> str:
     print("5 - Métiers")
     print("6 - Verbes français")
     print()
+    print("q - Quitter")
+    print()
     while theme_file == "":
-        answer_theme = input("votre choix ? : ")
+        answer_theme = input("votre choix ? : ").lower()
         match answer_theme:
             case "1":
                 theme_file = "dicos/animaux.txt"
@@ -108,6 +114,9 @@ def choose_theme() -> str:
                 theme_file = "dicos/metiers.txt"
             case "6":
                 theme_file = "dicos/verbes_fr.txt"
+            case "q":
+                print("Bye !")
+                exit()
             case _:
                 print("Choisissez un thème valide !")
                 time.sleep(1)
@@ -117,7 +126,7 @@ def choose_theme() -> str:
 def choose_diffulty() -> int:
     difficulty = ""
     cls()
-    print("Ok, choisissez le niveau difficulté : \n")
+    print("Ok, choisissez le niveau de difficulté : \n")
     print("1 - Facile      (mots de 1 à 5 lettres)")
     print("2 - Moyenne     (mots de 6 à 8 lettres)")
     print("3 - Difficile   (mots de 9 lettres et plus)\n")
@@ -159,6 +168,8 @@ def generate_wordlist(theme, difficulty) -> list:
 
 
 def start_wordle():
+    rounds = 5
+    total_score = 0
     cls()
     print("* * * * * * * * * * * * * *")
     print("        W O R D L E        ")
@@ -167,6 +178,34 @@ def start_wordle():
     theme_file = choose_theme()
     difficulty = choose_diffulty()
     customized_wordlist = generate_wordlist(theme_file, difficulty)
-    word_to_find = pick_word_from_list(customized_wordlist)
+    for i in range(rounds):
+        word_to_find = pick_word_from_list(customized_wordlist)
+        cls()
+        question_score = play_one_question_and_return_score(7, word_to_find, i, rounds)
+        cls()
+        print(f"SCORE dernière question : {question_score} point(s)\n")
+        if question_score == 7:
+            print("!!! Bonus de 3 pts pour avoir trouvé au 1er essai !!!\n")
+            total_score += 3
+        total_score += question_score
+        print(f"SCORE total : {total_score}\n")
+        input("Appuyer sur ENTER pour continuer ...")
+    endgame(total_score)
+
+
+def endgame(total_score):
     cls()
-    play_wordle(7, word_to_find)
+    print("- Fin de partie -\n")
+    print("Votre score total :", total_score, "\n")
+    if total_score < 11:
+        print("Pas terrible !\n")
+        input("Appuyer sur ENTER pour continuer ...")
+    if total_score > 10 and total_score < 26:
+        print("Ok, mais peut mieux faire !\n")
+        input("Appuyer sur ENTER pour continuer ...")
+    if total_score > 25 and total_score < 50:
+        print("Pas mal du tout !! Essayez maintenant d'atteindre le score parfait !\n")
+        input("Appuyer sur ENTER pour continuer ...")
+    if total_score == 50:
+        print("Wow ! incroyable, score parfait !!  Bravo ;) \n")
+        input("Appuyer sur ENTER pour continuer ...")

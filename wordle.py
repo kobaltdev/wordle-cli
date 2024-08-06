@@ -4,4 +4,5 @@ import wordle_functions
 
 # MAIN
 
-wordle_functions.start_wordle()
+while True:
+    wordle_functions.start_wordle()
