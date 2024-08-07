@@ -93,7 +93,7 @@ def choose_theme() -> str:
     print("1 - Animaux")
     print("2 - Corps humain")
     print("3 - Cuisine")
-    print("4 - Geographie française")
+    print("4 - Prénoms")
     print("5 - Métiers")
     print("6 - Verbes français")
     print()
@@ -109,7 +109,7 @@ def choose_theme() -> str:
             case "3":
                 theme_file = "dicos/cuisine.txt"
             case "4":
-                theme_file = "dicos/geo_fr.txt"
+                theme_file = "dicos/prenoms.txt"
             case "5":
                 theme_file = "dicos/metiers.txt"
             case "6":
