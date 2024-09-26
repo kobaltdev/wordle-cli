@@ -32,11 +32,9 @@ def clean_file(filepath_abs: str):
         content = f.readlines()
 
     for i in range(len(content)):
-        c = content[i].split(" :")
-        newcontent.append(c[0] + "\n")
+        c = content[i]
+        newcontent.append(c[:-2] + "\n")
     
     with open(filepath_abs, 'w') as f:
         for c in newcontent:
             f.write(c)
-
-
